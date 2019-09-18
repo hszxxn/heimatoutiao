@@ -54,14 +54,31 @@ export default {
   methods: {
     submitRules () {
     //   校验整个表单的规则
-      this.$refs.rulesForm.validate(function (isOk) {
+      this.$refs.rulesForm.validate(isOk => {
         if (isOk) {
           console.log('校验成功')
+          //   发送请求，验证登录信息
+          this.$http({
+            url: '/authorizations',
+            method: 'post',
+            data: this.loginData
+          }).then(result => {
+            // console.log(result.data.data.token)
+            // 把后端接口返回的令牌信息存入localStorage中
+            window.localStorage.setItem('user-token', result.data.data.token)
+            this.$router.push('/home')
+          }).catch(() => {
+            // console.log(err.message)
+            this.$message({
+              showClose: true,
+              message: '您的手机号或验证码输入错误',
+              type: 'warning'
+            })
+          })
         }
       })
     }
   }
-
 }
 </script>
 
