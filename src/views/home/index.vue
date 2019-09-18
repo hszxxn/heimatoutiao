@@ -1,6 +1,16 @@
 <template>
   <div class="home">
-    你好
+      <el-container>
+          <!-- 侧边栏 -->
+          <el-aside class='aside'>左侧</el-aside>
+          <el-container>
+                <el-header>头部</el-header>
+                <el-main>
+                    <router-view></router-view>
+                </el-main>
+          </el-container>
+
+      </el-container>
   </div>
 </template>
 
@@ -13,3 +23,10 @@ export default {
   }
 }
 </script>
+<style lang="less" scoped>
+   .aside {
+      width: 300px;
+      height: 100vh;
+      // background: red;
+    }
+</style>
