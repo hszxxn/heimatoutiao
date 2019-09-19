@@ -2,9 +2,13 @@
   <div class="home">
       <el-container>
           <!-- 侧边栏 -->
-          <el-aside class='aside'>左侧</el-aside>
+          <el-aside class='aside'>
+              <layout-slider></layout-slider>
+          </el-aside>
           <el-container>
-                <el-header>头部</el-header>
+                <!-- 头部 -->
+                <el-header></el-header>
+                <!-- 容器 -->
                 <el-main>
                     <router-view></router-view>
                 </el-main>
@@ -15,18 +19,17 @@
 </template>
 
 <script>
-
+import layoutSlider from '../../components/home/layout-aslider'
 export default {
 
   components: {
-
+    'layout-slider': layoutSlider
   }
 }
 </script>
 <style lang="less" scoped>
-   .aside {
-      width: 300px;
-      height: 100vh;
-      // background: red;
-    }
+.aside {
+    // width: 200px !important;
+    overflow: hidden
+}
 </style>
