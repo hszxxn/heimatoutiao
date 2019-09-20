@@ -20,7 +20,7 @@
                     <!-- 同意 -->
                     <el-checkbox label="我已阅读并同意用户协议和隐私条款" v-model='loginData.agree' name="type"></el-checkbox>
                </el-form-item>
-                <el-form-item>i
+                <el-form-item>
                     <!-- 登录 -->
                      <el-button type="primary" style="width:100%" @click="submitRules">登录</el-button>
                 </el-form-item>

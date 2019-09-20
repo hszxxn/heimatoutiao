@@ -1,5 +1,5 @@
 <template>
-  <el-row type='flex' justify='space-between' align='middle'>
+  <el-row type='flex' justify='space-between' align='middle' style="height:60px">
      <!-- 左侧 -->
      <el-col :span='6'>
         <i class='el-icon-s-unfold'></i>
@@ -47,7 +47,7 @@ export default {
     handleCommand (key) {
       // 点击账户信息
       if (key === 'account') {
-        //  要干什么事
+        this.$router.push('/home/account')
       } else if (key === 'gitAddress') {
         // 去Github
         location.href = 'https://github.com/shuiruohanyu/82heimatoutiao'

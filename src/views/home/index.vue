@@ -11,7 +11,7 @@
                   <layout-header></layout-header>
                 </el-header>
                 <!-- 容器 -->
-                <el-main>
+                <el-main class='main'>
                     <router-view></router-view>
                 </el-main>
           </el-container>
@@ -28,6 +28,10 @@ export default {
 <style lang="less" scoped>
 .aside {
     // width: 200px !important;
-    overflow: hidden
+    overflow: hidden;
+    background: #323745;
+}
+.main {
+    padding: 0px;
 }
 </style>
