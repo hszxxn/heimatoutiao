@@ -49,8 +49,13 @@ export default {
       if (key === 'account') {
         //  要干什么事
       } else if (key === 'gitAddress') {
-        location.href = ''
+        // 去Github
+        location.href = 'https://github.com/shuiruohanyu/82heimatoutiao'
       } else {
+        // 退出系统
+        localStorage.clear()//  退出完成之前删除token
+        // 跳到登录页面
+        this.$router.push('/login')
       }
     }
   },
