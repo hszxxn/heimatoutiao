@@ -7,16 +7,17 @@
      </el-col>
      <!-- 右侧 -->
      <el-col :span='4'>
-           <img src="../../assets/img/avatar.jpg" alt="" class='header-img'>
+           <!-- 如果用户没有头像，显示默认头像，有头像显示头像 -->
+           <img :src="userInfo.photo?userInfo.photo:defaultPic" alt="" class='header-img'>
         <!-- 下拉菜单 -->
-         <el-dropdown trigger="click" style="margin-left:10px">
+         <el-dropdown trigger="click" style="margin-left:10px" @command="handleCommand">
             <span class="el-dropdown-link">
-              用户<i class="el-icon-arrow-down el-icon--right"></i>
+              {{userInfo.name}}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>1</el-dropdown-item>
-              <el-dropdown-item>2</el-dropdown-item>
-              <el-dropdown-item>3</el-dropdown-item>
+              <el-dropdown-item command='account'>账户信息</el-dropdown-item>
+              <el-dropdown-item command='gitAddress'>Github地址</el-dropdown-item>
+              <el-dropdown-item command='lgout'>退出</el-dropdown-item>
             </el-dropdown-menu>
          </el-dropdown>
      </el-col>
@@ -25,7 +26,37 @@
 
 <script>
 export default {
-
+  data () {
+    return {
+      userInfo: {}, // 用户信息
+      defaultPic: require('../../assets/img/avatar.jpg')// 默认头像
+    }
+  },
+  methods: {
+    // 获取用户信息
+    getUserInfo () {
+      let token = localStorage.getItem('user-token')
+      this.$http({
+        url: '/user/profile',
+        headers: { 'Authorization': `Bearer ${token}` }
+      }).then(result => {
+        console.log(result)
+        this.userInfo = result.data.data
+      })
+    },
+    handleCommand (key) {
+      // 点击账户信息
+      if (key === 'account') {
+        //  要干什么事
+      } else if (key === 'gitAddress') {
+        location.href = ''
+      } else {
+      }
+    }
+  },
+  created () {
+    this.getUserInfo()
+  }
 }
 </script>
 
