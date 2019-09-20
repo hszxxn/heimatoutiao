@@ -2,12 +2,14 @@
   <div class="home">
       <el-container>
           <!-- 侧边栏 -->
-          <el-aside class='aside'>
+          <el-aside style='width:200px' class='aside'>
               <layout-slider></layout-slider>
           </el-aside>
           <el-container>
                 <!-- 头部 -->
-                <el-header></el-header>
+                <el-header>
+                  <layout-header></layout-header>
+                </el-header>
                 <!-- 容器 -->
                 <el-main>
                     <router-view></router-view>
@@ -19,12 +21,8 @@
 </template>
 
 <script>
-import layoutSlider from '../../components/home/layout-aslider'
-export default {
 
-  components: {
-    'layout-slider': layoutSlider
-  }
+export default {
 }
 </script>
 <style lang="less" scoped>

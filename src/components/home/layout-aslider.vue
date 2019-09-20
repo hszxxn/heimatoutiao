@@ -50,7 +50,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .layoutSlider{
-    width: 230px;
+    width: 200px;
     height: 100vh;
     background: #323745;
     .leftLogo{

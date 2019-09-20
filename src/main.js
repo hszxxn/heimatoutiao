@@ -5,6 +5,8 @@ import './styles/index.css'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
+import Component from './components/index'
+Vue.use(Component)
 Vue.prototype.$http = axios
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
 Vue.use(ElementUI)
