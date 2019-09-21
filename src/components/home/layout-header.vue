@@ -35,13 +35,11 @@ export default {
   methods: {
     // 获取用户信息
     getUserInfo () {
-      let token = localStorage.getItem('user-token')
       this.$http({
-        url: '/user/profile',
-        headers: { 'Authorization': `Bearer ${token}` }
+        url: '/user/profile'
       }).then(result => {
         console.log(result)
-        this.userInfo = result.data.data
+        this.userInfo = result.data
       })
     },
     handleCommand (key) {

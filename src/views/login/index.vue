@@ -65,7 +65,7 @@ export default {
           }).then(result => {
             // console.log(result.data.data.token)
             // 把后端接口返回的令牌信息存入localStorage中
-            window.localStorage.setItem('user-token', result.data.data.token)
+            window.localStorage.setItem('user-token', result.data.token)
             this.$router.push('/home')
           }).catch(() => {
             // console.log(err.message)
