@@ -37,7 +37,7 @@ axios.interceptors.response.use(function (response) {
     default:
       break
   }
-  Message({ message })
+  Message({ message, type: 'warning' })
   return new Promise(function () {})// 返回一个空的，是为了里面的then和catch都不执行
 })
 export default {
