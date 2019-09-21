@@ -67,13 +67,6 @@ export default {
             // 把后端接口返回的令牌信息存入localStorage中
             window.localStorage.setItem('user-token', result.data.token)
             this.$router.push('/home')
-          }).catch(() => {
-            // console.log(err.message)
-            this.$message({
-              showClose: true,
-              message: '您的手机号或验证码输入错误',
-              type: 'warning'
-            })
           })
         }
       })
