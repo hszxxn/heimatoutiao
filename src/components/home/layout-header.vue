@@ -38,7 +38,6 @@ export default {
       this.$http({
         url: '/user/profile'
       }).then(result => {
-        console.log(result)
         this.userInfo = result.data
       })
     },
