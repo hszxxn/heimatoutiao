@@ -3,6 +3,11 @@
       <break-crumb slot='header'>
             <template slot='title'>素材管理</template>
       </break-crumb>
+            <el-upload
+            class="upload-demo"
+            action="" :http-request='uploadImg' :show-file-list='false'>
+            <el-button size="small" type="primary">点击上传</el-button>
+            </el-upload>
       <el-tabs v-model="activeName" @tab-click="changeTab">
             <el-tab-pane label="全部素材" name="all">
                 <div class='img-list'>
@@ -23,6 +28,7 @@
                 </el-card>
                 </div>
             </el-tab-pane>
+
       </el-tabs>
       <el-row type='flex' justify='center' >
                     <el-pagination
@@ -50,6 +56,17 @@ export default {
     }
   },
   methods: {
+    // 上传图片
+    uploadImg (params) {
+      const data = new FormData()
+      data.append('image', params.file)
+      this.$http({
+        url: 'user/images',
+        data
+      }).then(() => {
+        this.getMaterial()
+      })
+    },
     changeTab () {
       this.page.currentPage = 1
       this.getMaterial()
@@ -78,6 +95,7 @@ export default {
 </script>
 
 <style lang='less' scoped>
+
 .img-list {
     display: flex;
     flex-wrap: wrap;
