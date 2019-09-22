@@ -1,5 +1,5 @@
 <template>
- <el-card>
+ <el-card v-loading='loading'>
    <break-crumb slot='header'>
           <template slot='title'>评论列表</template>
    </break-crumb>
@@ -41,17 +41,23 @@ export default {
         total: 0, // 总数
         // pageSize: 10, // 每页显示的数据条数
         currentPage: 1 // 当前页码
-      }
+      },
+      // 加载遮罩
+      loading: false
     }
   },
   methods: {
     // 获取评论
     getCommont () {
+      // 发送请求之前显示遮罩
+      this.loading = true
       this.$http({
         url: '/articles',
         params: { response_type: 'comment', page: this.page.currentPage }
       }).then(result => {
         console.log(result)
+        // 请求结束之后关闭遮罩
+        this.loading = false
         this.commontData = result.data.results
         this.page.total = result.data.total_count
         // this.page.pageSize = result.data.per_page
