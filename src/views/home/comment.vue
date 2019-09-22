@@ -17,7 +17,6 @@
                   {{obj.row.comment_status?'关闭评论':"打开评论"}}
                   </el-button>
                </template>
-
        </el-table-column>
    </el-table>
  </el-card>
