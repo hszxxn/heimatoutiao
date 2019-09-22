@@ -27,6 +27,10 @@ export default new Router({
         {
           path: 'commont',
           component: () => import('./views/home/comment.vue')
+        },
+        {
+          path: 'material',
+          component: () => import('./views/home/material.vue')
         }
       ]
     }
