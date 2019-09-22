@@ -3,6 +3,7 @@ import axios from 'axios'
 import router from '../premission'
 import { Message } from 'element-ui'
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
+
 // 请求拦截，在请求发给后台之前，将token塞进去
 axios.interceptors.request.use(function (config) {
   let token = localStorage.getItem('user-token')
@@ -37,7 +38,7 @@ axios.interceptors.response.use(function (response) {
     default:
       break
   }
-  Message({ message })
+  Message({ message, type: 'warning' })
   return new Promise(function () {})// 返回一个空的，是为了里面的then和catch都不执行
 })
 export default {
