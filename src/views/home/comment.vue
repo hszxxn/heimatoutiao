@@ -56,8 +56,11 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$http({
-          url: '/comments',
-          data: { 'allow_comment': row.comment_status }
+          url: '/comments/status',
+          method: 'put',
+          // 后台传过来的id经过json-bigint转成了BigNumber类型，所以传过去要转为字符串类型
+          params: { 'article_id': row.id.toString() },
+          data: { 'allow_comment': !row.comment_status }
         }).then(() => {
           this.getCommont()
         })

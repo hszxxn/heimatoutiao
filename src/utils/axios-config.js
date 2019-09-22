@@ -2,7 +2,12 @@
 import axios from 'axios'
 import router from '../premission'
 import { Message } from 'element-ui'
+import jsonBigint from 'json-bigint'
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0'
+// 对大数字进行处理
+axios.defaults.transformResponse = [function (data) {
+  return jsonBigint.parse(data)
+}]
 // 请求拦截，在请求发给后台之前，将token塞进去
 axios.interceptors.request.use(function (config) {
   let token = localStorage.getItem('user-token')
