@@ -19,6 +19,14 @@
                </template>
        </el-table-column>
    </el-table>
+   <!-- 分页 -->
+   <el-row type='flex' justify='center' style="margin-top:20px">
+     <el-pagination
+  background
+  layout="prev, pager, next"
+  :total="page.total" :current-page='page.currentPage'  @current-change='changePage'>
+</el-pagination>
+   </el-row>
  </el-card>
 </template>
 
@@ -26,7 +34,14 @@
 export default {
   data () {
     return {
-      commontData: [{}]
+      // 评论数据
+      commontData: [{}],
+      // 分页
+      page: {
+        total: 0, // 总数
+        // pageSize: 10, // 每页显示的数据条数
+        currentPage: 1 // 当前页码
+      }
     }
   },
   methods: {
@@ -34,10 +49,12 @@ export default {
     getCommont () {
       this.$http({
         url: '/articles',
-        params: { response_type: 'comment' }
+        params: { response_type: 'comment', page: this.page.currentPage }
       }).then(result => {
         console.log(result)
         this.commontData = result.data.results
+        this.page.total = result.data.total_count
+        // this.page.pageSize = result.data.per_page
       })
     },
     // 对评论状态为布尔值不能显示进行处理
@@ -65,6 +82,11 @@ export default {
           this.getCommont()
         })
       })
+    },
+    // 改变页码
+    changePage (newPage) {
+      this.page.currentPage = newPage
+      this.getCommont()
     }
 
   },
