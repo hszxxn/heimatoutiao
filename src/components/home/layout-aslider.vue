@@ -15,7 +15,7 @@
         <span slot="title">首页</span>
       </el-menu-item>
       <!-- 内容管理 -->
-      <el-submenu index=''>
+      <el-submenu index='1'>
         <template slot="title">
           <i class="el-icon-tickets"></i>
           <span>内容管理</span>
@@ -26,7 +26,7 @@
           <el-menu-item index="/home/material">素材管理</el-menu-item>
       </el-submenu>
       <!-- 粉丝管理 -->
-      <el-submenu index=''>
+      <el-submenu index='2'>
         <template slot="title">
           <i class="el-icon-user-solid"></i>
           <span>粉丝管理</span>

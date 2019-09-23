@@ -30,7 +30,7 @@ export default new Router({
         },
         {
           path: 'material',
-          component: () => import('./views/home/material.vue')
+          component: () => import('./views/material/index.vue')
         }
       ]
     }
