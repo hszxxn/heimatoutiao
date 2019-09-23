@@ -6,27 +6,30 @@
            </template>
       </break-crumb>
       <el-form>
+
           <!-- 文章状态 -->
          <el-form-item label='文章状态:' label-width='120px'>
-              <el-radio-group style='margin-left:20px'>
-                  <el-radio>全部</el-radio>
-                  <el-radio>草稿</el-radio>
-                  <el-radio>待审核</el-radio>
-                  <el-radio>审核通过</el-radio>
-                  <el-radio>审核失败</el-radio>
+              <!-- formData.status的值是label的值 -->
+              <el-radio-group style='margin-left:20px' v-model="formData.status" @change="change">
+                  <el-radio :label='5'>全部</el-radio>
+                  <el-radio :label='0'>草稿</el-radio>
+                  <el-radio :label='1'>待审核</el-radio>
+                  <el-radio :label='2'>审核通过</el-radio>
+                  <el-radio :label='3'>审核失败</el-radio>
           </el-radio-group>
           </el-form-item>
           <!-- 频道列表 -->
           <el-form-item label='频道列表:' label-width='120px'>
-              <el-select style='margin-left:20px'>
-                  <el-option>
+              <el-select style='margin-left:20px' v-model="formData.channelId" @change='change'>
+                  <el-option v-for='item in channels' :key='item.id' :value='item.id' :label='item.name'>
                   </el-option>
               </el-select>
           </el-form-item>
           <!-- 时间选择 -->
           <el-form-item label='时间选择:' label-width='120px'>
-                <el-date-picker style='margin-left:20px'
-                v-model="value1"
+                <el-date-picker style='margin-left:20px' @change='change'
+                v-model="formData.date"
+                value-format='yyyy-mm-dd'
                 type="daterange"
                 start-placeholder="开始日期"
                 end-placeholder="结束日期">
@@ -51,6 +54,14 @@
               </div>
           </div>
       </el-form>
+      <el-row type='flex' justify='center'>
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            @current-change='changePage'
+            :total="page.total" :current-page='page.currentPage' :page-sizes='page.pageSize'>
+          </el-pagination>
+      </el-row>
   </el-card>
 </template>
 
@@ -60,20 +71,64 @@ export default {
     return {
       list: [], // 列表数据
       defaultImg: require('../../assets/img/default.jpg'), // 默认图片
-      count: '' // 总数
-
+      count: '', // 总数
+      formData: {
+        status: 5,
+        channelId: null, // 频道Id
+        date: []
+      },
+      channels: [], // 频道
+      //   分页
+      page: {
+        total: 0,
+        pageSize: 10,
+        currentPage: 1
+      }
     }
   },
   methods: {
     // 获取内容列表的数据
-    getData () {
+    getData (params) {
       this.$http({
-        url: '/articles'
+        url: '/articles',
+        params
       }).then((result) => {
         console.log(result)
         this.list = result.data.results
         this.count = result.data.total_count
+        this.page.total = result.data.total_count
       })
+    },
+    // 获取频道列表
+    getChannels () {
+      this.$http({
+        url: 'channels'
+      }).then((result) => {
+        console.log(result)
+        this.channels = result.data.channels
+      })
+    },
+    // 通过参数获取数据
+    prepareParams () {
+      let params = {
+        channel_id: this.formData.channelId,
+        status: this.formData.status === 5 ? null : this.formData.status,
+        begin_pubdate: this.formData.date > 0 ? this.formData.date[0] : null,
+        end_pubdate: this.formData.date > 1 ? this.formData.date[1] : null,
+        page: this.page.currentPage,
+        pre_page: this.page.pageSize
+      }
+      this.getData(params)
+    },
+    // 改变查询条件，页码归一，进行查询
+    change () {
+      this.page.currentPage = 1
+      this.prepareParams()
+    },
+    // 改变页码，传入当前页码，进行查询
+    changePage (newPage) {
+      this.page.currentPage = newPage
+      this.prepareParams()
     }
   },
   filters: {
@@ -115,6 +170,7 @@ export default {
   },
   created () {
     this.getData()
+    this.getChannels()
   }
 }
 </script>
