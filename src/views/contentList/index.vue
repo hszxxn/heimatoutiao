@@ -50,7 +50,7 @@
               <!-- 右侧 -->
               <div class='right'>
                   <i class='el-icon-edit'>修改</i>
-                  <i class='el-icon-delete'>删除</i>
+                  <i class='el-icon-delete' @click='delItem(item.id)'>删除</i>
               </div>
           </div>
       </el-form>
@@ -165,6 +165,21 @@ export default {
         default:
           break
       }
+    },
+    // 删除
+    delItem (id) {
+      this.$confirm('您确定要删除吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning' }).then(() => {
+        this.$http({
+          url: `/articles/${id.toString()}`,
+          methord: 'delete'
+        }).then(() => {
+          this.$message({ 'message': '删除成功', 'type': 'success' })
+          this.prepareParams()
+        })
+      })
     }
 
   },
