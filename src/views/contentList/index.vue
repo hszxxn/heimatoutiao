@@ -33,15 +33,15 @@
                 </el-date-picker>
           </el-form-item>
           <!-- 列表 -->
-          <div class='total'>共找到55072条符合条件的内容</div>
-          <div class='list'>
+          <div class='total'>共找到{{count}}条符合条件的内容</div>
+          <div class='list' v-for='item in list' :key='item.id'>
               <!-- 左侧 -->
               <div class='left'>
-                  <img src="../../assets/img/login_bg.jpg" alt="">
+                  <img :src="item.cover.images.length?item.cover.images[0]:defaultImg" alt="">
                   <div class='content'>
-                        <span>我一直在看着你</span>
-                        <el-tag class='status'>已发表</el-tag>
-                        <span>2019-09-23 15:30:23</span>
+                        <span>{{item.title}}</span>
+                        <el-tag class='status' :type='item.status|getType'>{{item.status|getStatus}}</el-tag>
+                        <span>{{item.pubdate}}</span>
                   </div>
               </div>
               <!-- 右侧 -->
@@ -56,7 +56,66 @@
 
 <script>
 export default {
+  data () {
+    return {
+      list: [], // 列表数据
+      defaultImg: require('../../assets/img/default.jpg'), // 默认图片
+      count: '' // 总数
 
+    }
+  },
+  methods: {
+    // 获取内容列表的数据
+    getData () {
+      this.$http({
+        url: '/articles'
+      }).then((result) => {
+        console.log(result)
+        this.list = result.data.results
+        this.count = result.data.total_count
+      })
+    }
+  },
+  filters: {
+    // 对状态进行过滤
+    getStatus (value) {
+      switch (value) {
+        case 0:
+          return '草稿'
+        case 1:
+          return '待审核'
+        case 2:
+          return '已发表'
+        case 3:
+          return '审核失败'
+        case 4:
+          return '已删除'
+        default:
+          break
+      }
+    },
+    // 对el-tag的type进行过滤
+    getType (value) {
+      switch (value) {
+        case 0:
+          return 'warning'
+        case 1:
+          return 'info'
+        case 2:
+          return 'success'
+        case 3:
+          return 'danger'
+        case 4:
+          return 'danger'
+        default:
+          break
+      }
+    }
+
+  },
+  created () {
+    this.getData()
+  }
 }
 </script>
 
