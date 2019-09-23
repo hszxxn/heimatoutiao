@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card v-loading='loading'>
       <break-crumb slot='header'>
             <template slot='title'>素材管理</template>
       </break-crumb>
@@ -54,7 +54,8 @@ export default {
         total: 0,
         currentPage: 1,
         pageSize: 10
-      }
+      },
+      loading: 'fasle'
     }
   },
   methods: {
@@ -78,6 +79,7 @@ export default {
     },
     // 获取数据
     getMaterial () {
+      this.loading = 'true'
       this.$http({
         url: 'user/images',
         params: {
@@ -88,6 +90,7 @@ export default {
       }).then((result) => {
         this.list = result.data.results
         this.page.total = result.data.total_count
+        this.loading = false
       })
     },
     changePage (newPage) {
