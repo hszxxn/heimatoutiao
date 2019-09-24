@@ -48,7 +48,7 @@
               </div>
               <!-- 右侧 -->
               <div class='right'>
-                  <i class='el-icon-edit'>修改</i>
+                  <i class='el-icon-edit' @click='editItem(item.id)'>修改</i>
                   <i class='el-icon-delete' @click='delItem(item.id)'>删除</i>
               </div>
           </div>
@@ -147,6 +147,10 @@ export default {
           this.prepareParams()
         })
       })
+    },
+    // 编辑文章
+    editItem (id) {
+      this.$router.push(`/home/publish/${id}`)
     }
   },
   filters: {

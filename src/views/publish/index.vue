@@ -69,20 +69,35 @@ export default {
     publish (draft) {
       this.$refs.ruleForm.validate((isOk, err) => {
         if (isOk) {
+          // 判断有没有articleId,有就编辑，没有就是发表
+          let articleId = this.$route.params.id
           this.$http({
-            url: 'articles',
-            method: 'post',
+            url: articleId ? `articles/${articleId}` : `articles`,
+            method: articleId ? 'put' : 'post',
             params: { draft },
             data: this.formdata
           }).then(() => {
+            let state = articleId ? `修改` : `发表`
+            this.$message({ message: `${state}成功`, type: 'success' })
             this.$router.push('/home/articles')
           })
         }
+      })
+    },
+    // 编辑文章时，获取对应id的信息，显示在页面
+    getEdidInfo (editId) {
+      this.$http({
+        url: `articles/${editId}`
+      }).then((result) => {
+        this.formdata = result.data
       })
     }
   },
   created () {
     this.getChannel()
+    // 获取编辑文章的id
+    let editId = this.$route.params.id
+    editId && this.getEdidInfo(editId)
   }
 }
 </script>
