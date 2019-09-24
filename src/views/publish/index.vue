@@ -26,8 +26,8 @@
               </el-select>
           </el-form-item>
           <el-form-item>
-             <el-button type="primary" @click='publish'>发表</el-button>
-             <el-button>存入草稿</el-button>
+             <el-button type="primary" @click='publish(false)'>发表</el-button>
+             <el-button @click='publish(true)'>存入草稿</el-button>
           </el-form-item>
       </el-form>
   </el-card>
@@ -43,12 +43,13 @@ export default {
         content: '',
         cover: {
           type: 1,
-          images: ''
+          images: []
         },
         channel_id: ''
       },
       rules: {
-        title: [{ required: true, message: '标题不能为空', trigger: 'blur' }],
+        title: [{ required: true, message: '标题不能为空', trigger: 'blur' },
+          { min: 5, max: 30, message: '标题控制在5到30个字符之内', trigger: 'blur' }],
         content: [{ required: true, message: '内容不能为空', trigger: 'blur' }],
         channel_id: [{ required: true, message: '频道不能为空', trigger: 'blur' }]
       }
@@ -65,10 +66,17 @@ export default {
       })
     },
     // 发表文章
-    publish () {
+    publish (draft) {
       this.$refs.ruleForm.validate((isOk, err) => {
         if (isOk) {
-
+          this.$http({
+            url: 'articles',
+            method: 'post',
+            params: { draft },
+            data: this.formdata
+          }).then(() => {
+            this.$router.push('/home/articles')
+          })
         }
       })
     }
