@@ -10,16 +10,19 @@
                <el-input style='width:400px' v-model='formdata.title'></el-input>
           </el-form-item>
           <el-form-item label="内容" prop='content'>
-               <el-input type='textarea' style='width:800px' v-model='formdata.content'></el-input>
+               <el-input type="textarea" style='width:800px' v-model='formdata.content'></el-input>
           </el-form-item>
           <el-form-item label='封面' prop='cover'>
-               <el-radio-group v-model='formdata.cover.type'>
+               <el-radio-group v-model='formdata.cover.type' @change='changeImg'>
                   <el-radio :label='1'>单图</el-radio>
                   <el-radio :label='3'>三图</el-radio>
                   <el-radio :label='0'>无图</el-radio>
                   <el-radio :label='0'>自动</el-radio>
                </el-radio-group>
           </el-form-item>
+          <!-- 封面组件 -->
+          <!-- 传递到父组件的formdata.cover.images给子组件 -->
+          <cover-img :images='formdata.cover.images'></cover-img>
           <el-form-item label='频道' prop='channel_id'>
               <el-select v-model='formdata.channel_id'>
                   <el-option v-for='item in channels' :label='item.name' :value='item.id' :key='item.id'></el-option>
@@ -42,7 +45,7 @@ export default {
         title: '',
         content: '',
         cover: {
-          type: 1,
+          type: 0,
           images: []
         },
         channel_id: ''
@@ -91,6 +94,17 @@ export default {
       }).then((result) => {
         this.formdata = result.data
       })
+    },
+    // 上传图片
+    changeImg () {
+      if (this.formdata.cover.type === 1) {
+        this.formdata.cover.images = ['']
+        console.log(this.formdata.cover.images)
+      } else if (this.formdata.cover.type === 3) {
+        this.formdata.cover.images = ['', '', '']
+      } else {
+        this.formdata.cover.images = []
+      }
     }
   },
   created () {

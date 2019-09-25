@@ -7,7 +7,7 @@
 
         <el-upload
             class="sc"
-            action="" :http-request='uploadImg' :show-file-list='false' style="z-index:9999999999">
+            action="" :http-request='uploadImg' :show-file-list='false' style="z-index:1">
             <el-button size="small" type="primary">点击上传</el-button>
         </el-upload>
 
