@@ -21,8 +21,8 @@
                </el-radio-group>
           </el-form-item>
           <!-- 封面组件 -->
-          <!-- 传递到父组件的formdata.cover.images给子组件 -->
-          <cover-img :images='formdata.cover.images'></cover-img>
+          <!-- 传递到父组件的formdata.cover.images给子组件,子组件根据images的长度展示对应的框框 -->
+          <cover-img :images='formdata.cover.images' @cdImgUrl='receive'></cover-img>
           <el-form-item label='频道' prop='channel_id'>
               <el-select v-model='formdata.channel_id'>
                   <el-option v-for='item in channels' :label='item.name' :value='item.id' :key='item.id'></el-option>
@@ -99,12 +99,20 @@ export default {
     changeImg () {
       if (this.formdata.cover.type === 1) {
         this.formdata.cover.images = ['']
-        console.log(this.formdata.cover.images)
       } else if (this.formdata.cover.type === 3) {
         this.formdata.cover.images = ['', '', '']
       } else {
         this.formdata.cover.images = []
       }
+    },
+    // 接收子组件cover-img传过来的url和index，更改images
+    receive (url, index) {
+      this.formdata.cover.images = this.formdata.cover.images.map(function (item, i) {
+        if (index === i) {
+          return url
+        }
+        return item
+      })
     }
   },
   created () {

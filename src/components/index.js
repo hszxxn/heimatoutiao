@@ -5,7 +5,8 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 import VueQuillEditor from 'vue-quill-editor'// 富文本编辑器
-import coverImg from './publish/cover-img'
+import coverImg from './publish/cover-img'// 封面组件
+import selectImg from './publish/select-img'
 export default {
   install (Vue) {
     Vue.component('layoutSlider', layoutSlider)
@@ -13,5 +14,6 @@ export default {
     Vue.component('break-crumb', breakCrumb)
     Vue.component('quill-editor', VueQuillEditor)
     Vue.component('cover-img', coverImg)
+    Vue.component('selcet-img', selectImg)
   }
 }
