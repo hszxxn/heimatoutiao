@@ -8,8 +8,7 @@
              </el-card>
           </div>
           </div>
-      </el-tab-pane>
-      <el-row type='flex' justify='center'>
+            <el-row type='flex' justify='center'>
           <el-pagination
             background
             layout="prev, pager, next"
@@ -17,6 +16,15 @@
             :total="page.total" :current-page='page.currentPage' :page-size="page.pageSize">
           </el-pagination>
       </el-row>
+      </el-tab-pane>
+      <el-tab-pane label='上传素材' name='upload'>
+           <div class='upload'>
+                <el-upload action='' :http-request='uploadImg'>
+                     <img src="../../assets/img/pic_bg.png" alt="">
+                </el-upload>
+           </div>
+
+      </el-tab-pane>
    </el-tabs>
 </template>
 
@@ -55,6 +63,18 @@ export default {
     // 选择图片
     selectImg (item) {
       this.$emit('selectOneImg', item.url)
+    },
+    // 上传图片
+    uploadImg (params) {
+      let data = new FormData()
+      data.append('image', params.file)
+      this.$http({
+        url: '/user/images',
+        method: 'post',
+        data
+      }).then((result) => {
+        this.$emit('selectOneImg', result.data.url)
+      })
     }
   },
   created () {
@@ -77,5 +97,10 @@ export default {
       height: 100%;
     }
     }
+}
+.upload{
+  width: 242px;
+  height: 222px;
+  border: 1px solid #ccc
 }
 </style>
