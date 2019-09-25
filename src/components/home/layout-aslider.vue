@@ -31,13 +31,13 @@
           <i class="el-icon-user-solid"></i>
           <span>粉丝管理</span>
         </template>
-          <el-menu-item index="home/graData">图文数据</el-menu-item>
+          <el-menu-item index="/home/graData">图文数据</el-menu-item>
           <el-menu-item index="/home/fanprof">粉丝概况</el-menu-item>
           <el-menu-item index="/home/fanImg">粉丝画像</el-menu-item>
           <el-menu-item index="/home/fanList">粉丝列表</el-menu-item>
       </el-submenu>
       <!-- 账户信息 -->
-      <el-menu-item index="home/account">
+      <el-menu-item index="/home/account">
         <i class="el-icon-setting"></i>
         <span slot="title">账户信息</span>
       </el-menu-item>

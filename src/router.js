@@ -43,6 +43,10 @@ export default new Router({
         {
           path: 'publish/:id',
           component: () => import('./views/publish/index.vue')
+        },
+        {
+          path: 'account',
+          component: () => import('./views/account/index.vue')
         }
       ]
     }

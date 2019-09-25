@@ -21,7 +21,7 @@
                </el-radio-group>
           </el-form-item>
           <!-- 封面组件 -->
-          <!-- 传递到父组件的formdata.cover.images给子组件,子组件根据images的长度展示对应的框框 -->
+          <!-- 传递父组件的formdata.cover.images给子组件,子组件根据images的长度展示对应的框框 -->
           <cover-img :images='formdata.cover.images' @cdImgUrl='receive'></cover-img>
           <el-form-item label='频道' prop='channel_id'>
               <el-select v-model='formdata.channel_id'>

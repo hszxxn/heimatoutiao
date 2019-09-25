@@ -26,7 +26,7 @@ export default {
   methods: {
     // 接收select-img组件传递过来的url
     receive (url) {
-      // 抛出事件把url和点击时，图片的索引传递给父组件publish中的index.vue
+      // 抛出事件把url和点击时图片的索引传递给父组件publish中的index.vue
       this.$emit('cdImgUrl', url, this.selectImgIndex)
     },
     clickImg (index) {
